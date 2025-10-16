@@ -7,7 +7,8 @@
 </head>
 <body>
     <?php
-    $pdo = new PDO('pgsql:host=localhost;dbname=steam', 'steam', 'steam');
+    require 'auxiliar.php';
+    $pdo = conectar();
     $sent = $pdo -> query('SELECT * FROM clientes');
     
     //foreach ($sent as $fila) {
@@ -28,6 +29,7 @@
             <th>Dirección</th>
             <th>Código Postal</th>
             <th>Teléfono</th>
+            <th>Acciones</th>
         </thread>
         <tbody>
             <?php foreach ($sent as $fila): ?>
@@ -38,6 +40,12 @@
                 <td><?= $fila['direccion'] ?></td>
                 <td><?= $fila['codpostal'] ?></td>
                 <td><?= $fila['telefono'] ?></td>
+                <td>
+                    <form action="borrar.php" method="post">
+                        <input type="hidden" name="id" value="<?= $fila['id'] ?>">
+                        <button type="submit">Borrar</button>
+                    </form>
+                </td>
             </tr>
             <?php endforeach ?>
         </tbody>
