@@ -50,5 +50,36 @@
             <?php endforeach ?>
         </tbody>
     </table>
+    <a href="insertar.php">Insertar un nuevo cliente.</a>
+    <?php
+    $pdo = conectar();
+    $sent = $pdo -> query('SELECT * FROM videojuegos');
+
+    ?>
+    <table border="1">
+        <thread>
+            <th>Nombre</th>
+            <th>Salida</th>
+            <th>Precio</th>
+            <th>Desarrolladora</th>
+            <th>Acciones</th>
+        </thread>
+        <tbody>
+            <?php foreach ($sent as $fila): ?>
+            <tr>
+                <td><?= $fila['nombre'] ?></td>
+                <td><?= $fila['salida'] ?></td>
+                <td><?= $fila['precio'] ?></td>
+                <td><?= $fila['desarrolladora_id'] ?></td>
+                <td>
+                    <form action="borrar.php" method="post">
+                        <input type="hidden" name="id" value="<?= $fila['id'] ?>">
+                        <button type="submit">Borrar</button>
+                    </form>
+                </td>
+            </tr>
+            <?php endforeach ?>
+        </tbody>
+    </table>
 </body>
 </html>
