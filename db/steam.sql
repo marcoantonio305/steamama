@@ -1,5 +1,6 @@
 -- Tabla de clientes de tienda online
 
+
 DROP TABLE IF EXISTS clientes CASCADE;
 
 CREATE TABLE clientes (
@@ -8,7 +9,7 @@ CREATE TABLE clientes (
     nombre      VARCHAR(255)    NOT NULL,
     apellidos   VARCHAR(255),
     direccion   VARCHAR(255),
-    codpostal   NUMERIC(5)      CHECK (codpostal >= 0),
+    codpostal   NUMERIC(5),
     telefono    VARCHAR(255)
 );
 
@@ -33,6 +34,16 @@ CREATE TABLE videojuegos (
     desarrolladora_id       BIGINT NOT NULL REFERENCES desarrolladoras(id)
 );
 
+--Tabla de usuarios
+DROP TABLE IF EXISTS usuarios CASCADE;
+CREATE TABLE usuarios (
+    id          BIGSERIAL       PRIMARY KEY,
+    nick        VARCHAR(255)    NOT NULL UNIQUE,
+    password    VARCHAR(255)    NOT NULL
+);
+
+
+
 -- Datos de prueba
 
 INSERT INTO clientes (dni, nombre, apellidos, direccion, codpostal, telefono)
@@ -46,3 +57,5 @@ INSERT INTO videojuegos (nombre, salida, precio, desarrolladora_id)
 VALUES ('Blasphemous', '2019-04-20 14:12:00', 39.90, 1),
 ('Half-life 3', '2025-11-30 20:00:00', 59.90, 2);
 
+INSERT INTO usuarios(nick, password)
+VALUES ('usuario', crypt('usuario', gen_salt('bf', 10)));

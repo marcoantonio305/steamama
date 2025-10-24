@@ -15,8 +15,19 @@
     $codpostal = obtener_post('codpostal');
     $telefono = obtener_post('telefono');
 
+    $error = [];
+
     if (isset($dni, $nombre, $apellidos, $direccion, $codpostal, $telefono)) {
         //Validación
+        $pdo = conectar();
+        $error = [];
+        validar_dni($dni, $error, $pdo);
+        validar_nombre($nombre, $error);
+        validar_sanear_apellidos($apellidos, $error);
+        validar_sanear_direccion($direccion, $error);
+        validar_sanear_codpostal($codpostal, $error);
+        validar_sanear_telefono($telefono, $error);
+        if (empty($error)) {
         $pdo = conectar();
         $sent = $pdo->prepare('INSERT INTO clientes(dni, nombre, apellidos, direccion, codpostal, telefono)
         VALUES (:dni, :nombre, :apellidos, :direccion, :codpostal, :telefono)');
@@ -29,21 +40,25 @@
             ':telefono' =>$telefono,
         ]);
         return volver_index();
-    };
+    }
+    else {
+        mostrar_errores($error);
+    }
+};
     ?>
     <form action="" method="post">
         <label for="dni">DNI:</label>
-        <input type="text" id="dni" name="dni"> <br>
+        <input type="text" id="dni" name="dni" value="<?= $dni ?>"> <br>
         <label for="nombre">Nombre: </label>
-        <input type="text" id="nombre" name="nombre"> <br>
+        <input type="text" id="nombre" name="nombre" value="<?= $nombre ?>"> <br>
         <label for="apellidos">Apellidos:</label>
-        <input type="text" id="apellidos" name="apellidos"> <br>
+        <input type="text" id="apellidos" name="apellidos" value="<?= $apellidos ?>"> <br>
         <label for="direccion">Dirección:</label>
-        <input type="text" id="direccion" name="direccion"> <br>
+        <input type="text" id="direccion" name="direccion" value="<?= $direccion ?>"> <br>
         <label for="codpostal">Código Postal:</label>
-        <input type="text" id="codpostal" name="codpostal"><br>
+        <input type="text" id="codpostal" name="codpostal" value="<?= $codpostal ?>"><br>
         <label for="telefono">Teléfono:</label>
-        <input type="text" id="telefono" name="telefono"><br>
+        <input type="text" id="telefono" name="telefono" value="<?= $telefono ?>"><br>
         <button type="submit">Insertar</button>
     </form>
 </body>
