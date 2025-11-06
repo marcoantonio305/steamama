@@ -1,6 +1,8 @@
 <?php
 
-require_once 'Cliente.php';
+require "../vendor/autoload.php";
+
+use App\AR\Cliente;
 
 function conectar()
 {

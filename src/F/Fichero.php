@@ -1,12 +1,11 @@
 <?php
 
-namespace F;
+namespace App\F;
 
-require_once 'Cadenas.php';
 
 class Fichero
 {
-    use \Utilidades\Cadenas;
+    use App\Utilidades\Cadenas;
 
     public function __construct()
     {

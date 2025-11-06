@@ -8,8 +8,10 @@
 </head>
 <body>
     <?php
-    require_once 'auxiliar.php';
-    require_once 'Cliente.php';
+    require_once '../src/auxiliar.php';
+    require_once '../vendor/autoload.php';
+
+    use App\AR\Cliente;
 
     if (!esta_logueado()) {
         return;
