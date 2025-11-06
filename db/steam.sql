@@ -59,3 +59,6 @@ VALUES ('Blasphemous', '2019-04-20 14:12:00', 39.90, 1),
 
 INSERT INTO usuarios(nick, password)
 VALUES ('usuario', crypt('usuario', gen_salt('bf', 10)));
+
+INSERT INTO usuarios(nick, password)
+VALUES ('admin', crypt('admin', gen_salt('bf', 10)));
